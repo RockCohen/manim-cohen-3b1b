@@ -10,110 +10,106 @@
 [![Manim Discord](https://img.shields.io/discord/581738731934056449.svg?label=discord&logo=discord)](https://discord.com/invite/bYCyhM9Kz2)
 [![docs](https://github.com/3b1b/manim/workflows/docs/badge.svg)](https://3b1b.github.io/manim/)
 
-Manim is an engine for precise programmatic animations, designed for creating explanatory math videos.
+Manim 是一个用于精确编程动画的引擎，专为创建解释性数学视频而设计。
 
-Note, there are two versions of manim.  This repository began as a personal project by the author of [3Blue1Brown](https://www.3blue1brown.com/) for the purpose of animating those videos, with video-specific code available [here](https://github.com/3b1b/videos).  In 2020 a group of developers forked it into what is now the [community edition](https://github.com/ManimCommunity/manim/), with a goal of being more stable, better tested, quicker to respond to community contributions, and all around friendlier to get started with. See [this page](https://docs.manim.community/en/stable/faq/installation.html#different-versions) for more details.
+请注意，Manim 有两个版本。这个仓库最初是 [3Blue1Brown](https://www.3blue1brown.com/) 的作者的个人项目，用于制作那些视频，视频特定的代码可在[这里](https://github.com/3b1b/videos)找到。2020年，一群开发者将其分叉成现在的[社区版](https://github.com/ManimCommunity/manim/)，目标是使其更加稳定、更好地测试、更快地响应社区贡献，并且总体上更容易上手。有关更多详细信息，请参阅[此页面](https://docs.manim.community/en/stable/faq/installation.html#different-versions)。
 
-## Installation
+## 安装
 > [!Warning]
-> **WARNING:** These instructions are for ManimGL _only_. Trying to use these instructions to install [Manim Community/manim](https://github.com/ManimCommunity/manim) or instructions there to install this version will cause problems. You should first decide which version you wish to install, then only follow the instructions for your desired version.
+> **警告：** 这些说明仅适用于 ManimGL。尝试使用这些说明安装 [Manim Community/manim](https://github.com/ManimCommunity/manim) 或使用那里的说明安装此版本将导致问题。您应该首先决定要安装哪个版本，然后仅遵循所需版本的说明。
 
 > [!Note]
-> **Note**: To install manim directly through pip, please pay attention to the name of the installed package. This repository is ManimGL of 3b1b. The package name is `manimgl` instead of `manim` or `manimlib`. Please use `pip install manimgl` to install the version in this repository.
+> **注意**：通过 pip 直接安装 manim 时，请注意已安装包的名称。此仓库是 3b1b 的 ManimGL。包名是 `manimgl` 而不是 `manim` 或 `manimlib`。请使用 `pip install manimgl` 安装此仓库中的版本。
 
-Manim runs on Python 3.7 or higher.
+Manim 运行在 Python 3.7 或更高版本上。
 
-System requirements are [FFmpeg](https://ffmpeg.org/), [OpenGL](https://www.opengl.org/) and [LaTeX](https://www.latex-project.org) (optional, if you want to use LaTeX).
-For Linux, [Pango](https://pango.gnome.org) along with its development headers are required. See instruction [here](https://github.com/ManimCommunity/ManimPango#building).
+系统要求是 [FFmpeg](https://ffmpeg.org/)、[OpenGL](https://www.opengl.org/) 和 [LaTeX](https://www.latex-project.org)（可选，如果您想使用 LaTeX）。
+对于 Linux，需要 [Pango](https://pango.gnome.org) 及其开发头文件。请参阅[此处](https://github.com/ManimCommunity/ManimPango#building)的说明。
 
+### 直接安装
 
-### Directly
-
-```sh
-# Install manimgl
+\`\`\`sh
+# 安装 manimgl
 pip install manimgl
 
-# Try it out
+# 试一试
 manimgl
-```
+\`\`\`
 
-For more options, take a look at the [Using manim](#using-manim) sections further below.
+有关更多选项，请查看下面的[使用 manim](#使用-manim) 部分。
 
-If you want to hack on manimlib itself, clone this repository and in that directory execute:
+如果您想修改 manimlib 本身，请克隆此仓库并在该目录中执行：
 
-```sh
-# Install manimgl
+\`\`\`sh
+# 安装 manimgl
 pip install -e .
 
-# Try it out
+# 试一试
 manimgl example_scenes.py OpeningManimExample
-# or
+# 或
 manim-render example_scenes.py OpeningManimExample
-```
+\`\`\`
 
-### Directly (Windows)
+### 直接安装（Windows）
 
-1. [Install FFmpeg](https://www.wikihow.com/Install-FFmpeg-on-Windows).
-2. Install a LaTeX distribution. [MiKTeX](https://miktex.org/download) is recommended.
-3. Install the remaining Python packages.
-    ```sh
+1. [安装 FFmpeg](https://www.wikihow.com/Install-FFmpeg-on-Windows)。
+2. 安装 LaTeX 发行版。推荐 [MiKTeX](https://miktex.org/download)。
+3. 安装剩余的 Python 包。
+    \`\`\`sh
     git clone https://github.com/3b1b/manim.git
     cd manim
     pip install -e .
     manimgl example_scenes.py OpeningManimExample
-    ```
+    \`\`\`
 
 ### Mac OSX
 
-1. Install FFmpeg, LaTeX in terminal using homebrew.
-    ```sh
+1. 使用 homebrew 在终端中安装 FFmpeg 和 LaTeX。
+    \`\`\`sh
     brew install ffmpeg mactex
-    ```
+    \`\`\`
    
-2. Install latest version of manim using these command.
-    ```sh
+2. 使用这些命令安装最新版本的 manim。
+    \`\`\`sh
     git clone https://github.com/3b1b/manim.git
     cd manim
     pip install -e .
     manimgl example_scenes.py OpeningManimExample
-    ```
+    \`\`\`
 
-## Anaconda Install
+## Anaconda 安装
 
-1. Install LaTeX as above.
-2. Create a conda environment using `conda create -n manim python=3.8`.
-3. Activate the environment using `conda activate manim`.
-4. Install manimgl using `pip install -e .`.
+1. 如上所述安装 LaTeX。
+2. 使用 `conda create -n manim python=3.8` 创建一个 conda 环境。
+3. 使用 `conda activate manim` 激活环境。
+4. 使用 `pip install -e .` 安装 manimgl。
 
-
-## Using manim
-Try running the following:
-```sh
+## 使用 manim
+尝试运行以下命令：
+\`\`\`sh
 manimgl example_scenes.py OpeningManimExample
-```
-This should pop up a window playing a simple scene.
+\`\`\`
+这应该会弹出一个窗口播放一个简单的场景。
 
-Look through the [example scenes](https://3b1b.github.io/manim/getting_started/example_scenes.html) to see examples of the library's syntax, animation types and object types. In the [3b1b/videos](https://github.com/3b1b/videos) repo, you can see all the code for 3blue1brown videos, though code from older videos may not be compatible with the most recent version of manim. The readme of that repo also outlines some details for how to set up a more interactive workflow, as shown in [this manim demo video](https://www.youtube.com/watch?v=rbu7Zu5X1zI) for example.
+查看[示例场景](https://3b1b.github.io/manim/getting_started/example_scenes.html)以了解库的语法、动画类型和对象类型的示例。在 [3b1b/videos](https://github.com/3b1b/videos) 仓库中，您可以看到所有 3blue1brown 视频的代码，尽管旧视频的代码可能与最新版本的 manim 不兼容。该仓库的 readme 还概述了如何设置更具交互性的工作流程的一些细节，例如在[这个 manim 演示视频](https://www.youtube.com/watch?v=rbu7Zu5X1zI)中所示。
 
-When running in the CLI, some useful flags include:
-* `-w` to write the scene to a file
-* `-o` to write the scene to a file and open the result
-* `-s` to skip to the end and just show the final frame.
-    * `-so` will save the final frame to an image and show it
-* `-n <number>` to skip ahead to the `n`'th animation of a scene.
-* `-f` to make the playback window fullscreen
+在 CLI 中运行时，一些有用的标志包括：
+* `-w` 将场景写入文件
+* `-o` 将场景写入文件并打开结果
+* `-s` 跳到结尾并仅显示最终帧。
+    * `-so` 将最终帧保存为图像并显示
+* `-n <number>` 跳到场景的第 `n` 个动画。
+* `-f` 使播放窗口全屏
 
-Take a look at custom_config.yml for further configuration.  To add your customization, you can either edit this file, or add another file by the same name "custom_config.yml" to whatever directory you are running manim from.  For example [this is the one](https://github.com/3b1b/videos/blob/master/custom_config.yml) for 3blue1brown videos.  There you can specify where videos should be output to, where manim should look for image files and sounds you want to read in, and other defaults regarding style and video quality.
+查看 custom_config.yml 以获取更多配置。要添加您的自定义设置，您可以编辑此文件，或者将另一个同名文件 "custom_config.yml" 添加到您运行 manim 的任何目录中。例如，[这是](https://github.com/3b1b/videos/blob/master/custom_config.yml) 3blue1brown 视频的配置文件。在那里，您可以指定视频应该输出到哪里，manim 应该在哪里查找您想要读入的图像文件和声音，以及关于样式和视频质量的其他默认设置。
 
-### Documentation
-Documentation is in progress at [3b1b.github.io/manim](https://3b1b.github.io/manim/). And there is also a Chinese version maintained by [**@manim-kindergarten**](https://manim.org.cn): [docs.manim.org.cn](https://docs.manim.org.cn/) (in Chinese).
+### 文档
+文档正在 [3b1b.github.io/manim](https://3b1b.github.io/manim/) 上进行中。还有一个由 [**@manim-kindergarten**](https://manim.org.cn) 维护的中文版本：[docs.manim.org.cn](https://docs.manim.org.cn/)（中文）。
 
-[manim-kindergarten](https://github.com/manim-kindergarten/) wrote and collected some useful extra classes and some codes of videos in [manim_sandbox repo](https://github.com/manim-kindergarten/manim_sandbox).
+[manim-kindergarten](https://github.com/manim-kindergarten/) 在 [manim_sandbox 仓库](https://github.com/manim-kindergarten/manim_sandbox) 中编写和收集了一些有用的额外类和视频代码。
 
+## 贡献
+始终欢迎贡献。如上所述，[社区版](https://github.com/ManimCommunity/manim) 拥有最活跃的贡献生态系统，包括测试和持续集成，但这里也欢迎拉取请求。请解释给定更改的动机及其效果示例。
 
-## Contributing
-Is always welcome.  As mentioned above, the [community edition](https://github.com/ManimCommunity/manim) has the most active ecosystem for contributions, with testing and continuous integration, but pull requests are welcome here too.  Please explain the motivation for a given change and examples of its effect.
-
-
-## License
-This project falls under the MIT license.
+## 许可证
+该项目采用 MIT 许可证。
