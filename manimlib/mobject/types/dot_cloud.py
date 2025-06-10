@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from typing import Sequence, Tuple
     from manimlib.typing import ManimColor, Vect3, Vect3Array, Self
 
-
+# 默认值
 DEFAULT_DOT_RADIUS = 0.05
 DEFAULT_GLOW_DOT_RADIUS = 0.2
 DEFAULT_GRID_HEIGHT = 6
