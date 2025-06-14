@@ -112,3 +112,115 @@ Text --> User: Text对象（可用于动画）
 - 继承结构：StringMobject（抽象基类）→ MarkupText（富文本）→ Text/Code（具体实现）
 - 核心机制：字符串分割、span 匹配、属性插入、SVG 生成、子对象管理
 - 渲染流程：构造 → 解析 → 生成内容 → 生成 SVG → 生成 VMobject
+
+
+---
+
+## 5. Text/MarkupText/Code 的使用方法
+
+### 1. 基本用法
+
+Text、MarkupText 和 Code 用于在 Manim 中渲染普通文本、富文本和高亮代码。
+
+#### 示例：普通文本
+
+````python
+from manimlib.imports import *
+
+class TextDemo(Scene):
+def construct(self):
+text = Text("Hello, Manim!", font_size=48, color=BLUE)
+self.add(text)
+self.wait(1)
+````
+
+#### 示例：富文本（MarkupText）
+
+````python
+class MarkupTextDemo(Scene):
+def construct(self):
+markup = MarkupText(
+'<span foreground="red" size="x-large">Red</span> <b>Bold</b> <i>Italic</i>',
+font_size=48
+)
+self.add(markup)
+self.wait(1)
+````
+
+#### 示例：高亮代码（Code）
+
+````python
+class CodeDemo(Scene):
+def construct(self):
+code = Code(
+"def hello():\n    print('Hello, world!')",
+language="python",
+font_size=36
+)
+self.add(code)
+self.wait(1)
+````
+
+### 2. 常用参数
+
+- `font_size`：字体大小
+- `color`：整体颜色
+- `font`：字体名称
+- `slant`：斜体（"NORMAL"/"ITALIC"）
+- `weight`：粗体（"NORMAL"/"BOLD"）
+- `line_spacing`：行间距
+- `t2c`：为指定子串着色（Text/MarkupText）
+- `t2s`：为指定子串设置样式（MarkupText）
+- `tab_width`：制表符宽度（Code）
+- `language`：代码语言（Code）
+
+### 3. 富文本与高亮
+
+- MarkupText 支持 Pango Markup 语法，可用 HTML-like 标签设置颜色、粗体、斜体、下划线等。
+- Code 支持多种编程语言的语法高亮。
+
+#### 示例：为子串着色/加粗
+
+````python
+class TextColorDemo(Scene):
+def construct(self):
+text = Text(
+"Manim is fun!",
+t2c={"Manim": YELLOW, "fun": RED},
+font_size=48
+)
+self.add(text)
+self.wait(1)
+````
+
+#### 示例：富文本多样式
+
+````python
+class MarkupTextStyleDemo(Scene):
+def construct(self):
+markup = MarkupText(
+'<span foreground="blue">Blue</span> <span background="yellow">BG</span> <u>Underline</u>',
+font_size=48
+)
+self.add(markup)
+self.wait(1)
+````
+
+### 4. 动画与变换
+
+Text/MarkupText/Code 支持与 Manim 动画系统结合，实现移动、变色、变形等动画。
+
+````python
+class TextAnimationDemo(Scene):
+def construct(self):
+text1 = Text("Hello")
+text2 = Text("World")
+self.add(text1)
+self.wait(0.5)
+self.play(Transform(text1, text2))
+self.wait(1)
+````
+
+---
+
+通过上述方法，Text、MarkupText 和 Code 可以灵活地实现普通文本、富文本和高亮代码的渲染、样式设置和动画，满足各种文本可视化需求。

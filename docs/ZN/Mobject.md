@@ -336,3 +336,84 @@ Mobject模块是Manim的核心组件，通过精心设计的对象层次结构�
 5. 丰富的预定义对象库，满足各种数学可视化需求
 
 通过深入理解Mobject模块的设计和实现，可以更有效地利用Manim创建复杂、精美的数学动画。
+
+
+
+---
+
+## 10. Mobject 的基本使用方法
+
+### 1. 基本用法
+
+Mobject 是所有可视化对象的基类，通常通过其子类（如 Dot、Circle、Square、VMobject 等）进行实例化和使用。
+
+#### 示例：创建和添加对象
+
+````python
+from manimlib.imports import *
+
+class MobjectBasicDemo(Scene):
+def construct(self):
+dot = Dot([0, 0, 0], color=YELLOW)
+circle = Circle(radius=1, color=BLUE)
+square = Square(side_length=2, color=GREEN)
+self.add(dot, circle, square)
+self.wait(1)
+````
+
+### 2. 常用方法
+
+- `shift(vector)`：平移对象
+- `scale(factor)`：缩放对象
+- `rotate(angle, axis=OUT)`：绕指定轴旋转对象
+- `set_color(color)`：设置颜色
+- `set_opacity(opacity)`：设置透明度
+- `move_to(point)`：移动到指定位置
+- `add(*mobjects)`：将子对象添加到当前对象
+- `remove(*mobjects)`：移除子对象
+
+#### 示例：对象变换
+
+````python
+class MobjectTransformDemo(Scene):
+def construct(self):
+square = Square()
+self.add(square)
+self.play(square.animate.shift(RIGHT).scale(1.5).set_color(RED))
+self.wait(1)
+````
+
+### 3. 组合与分组
+
+可以将多个 Mobject 组合成一个整体，便于统一操作。
+
+````python
+class MobjectGroupDemo(Scene):
+def construct(self):
+dot = Dot(LEFT)
+circle = Circle().shift(RIGHT)
+group = VGroup(dot, circle)
+group.set_color(PURPLE)
+group.scale(1.2)
+self.add(group)
+self.wait(1)
+````
+
+### 4. 动画与插值
+
+Mobject 支持与 Manim 动画系统结合，实现平移、缩放、变色等动画。
+
+````python
+class MobjectAnimationDemo(Scene):
+def construct(self):
+square = Square()
+circle = Circle()
+self.add(square)
+self.wait(0.5)
+self.play(Transform(square, circle))
+self.wait(1)
+````
+
+---
+
+通过上述方法，Mobject 及其子类可以灵活地实现对象的创建、变换、组合和动画，满足各种数学动画和可视化需求。

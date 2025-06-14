@@ -114,3 +114,93 @@ endif
 stop
 @enduml
 ```
+
+
+---
+
+## DotCloud 的使用方法
+
+### 1. 基本用法
+
+DotCloud 用于创建和操作一组点（点云），支持自定义点的位置、颜色、半径、发光等属性。
+
+#### 示例：创建基本点云
+
+````python
+from manimlib.imports import *
+
+class DotCloudDemo(Scene):
+def construct(self):
+points = [
+[0, 0, 0],
+[1, 0, 0],
+[0, 1, 0],
+[1, 1, 0]
+]
+cloud = DotCloud(points, radius=0.1, color=YELLOW)
+self.add(cloud)
+self.wait(1)
+````
+
+### 2. 点云排列为网格
+
+DotCloud 支持将点排列为规则网格。
+
+````python
+class DotCloudGridDemo(Scene):
+def construct(self):
+cloud = DotCloud()
+cloud.to_grid(n_rows=5, n_cols=5, height=3)
+cloud.set_color(BLUE)
+self.add(cloud)
+self.wait(1)
+````
+
+### 3. 半径与发光因子的调整
+
+可以动态调整所有点或单个点的半径、发光因子。
+
+````python
+class DotCloudRadiusGlowDemo(Scene):
+def construct(self):
+cloud = DotCloud()
+cloud.to_grid(n_rows=4, n_cols=4)
+cloud.set_radius(0.15)
+cloud.set_glow_factor(2.0)
+self.add(cloud)
+self.wait(1)
+````
+
+### 4. 动画与变换
+
+DotCloud 支持与 Manim 动画系统结合，实现点云的移动、缩放、变色等动画。
+
+````python
+class DotCloudAnimationDemo(Scene):
+def construct(self):
+cloud = DotCloud()
+cloud.to_grid(n_rows=6, n_cols=6)
+self.add(cloud)
+self.play(cloud.animate.scale(1.5).set_color(RED))
+self.wait(1)
+````
+
+### 5. TrueDot、GlowDots、GlowDot 的用法
+
+- **TrueDot**：单个点，默认在原点，可指定位置。
+- **GlowDots**：一组发光点，默认黄色，半径和发光因子更大。
+- **GlowDot**：单个发光点。
+
+````python
+class SpecialDotsDemo(Scene):
+def construct(self):
+dot = TrueDot([2, 1, 0], radius=0.2, color=GREEN)
+glow_dots = GlowDots([[-1, 0, 0], [1, 0, 0]], radius=0.18)
+glow_dot = GlowDot([0, -1, 0], radius=0.25)
+self.add(dot, glow_dots, glow_dot)
+self.wait(1)
+````
+
+---
+
+通过上述方法，DotCloud 及其子类可以灵活地实现点云的创建、网格排列、半径与发光调整、动画变换等，适用于各种基于点的可视化和动画场景。

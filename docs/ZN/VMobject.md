@@ -519,3 +519,87 @@ VMobject是Manim中最核心的图形对象类之一，它通过贝塞尔曲线�
 VMobject的数据结构设计精巧，通过特定的点组织方式和子路径表示方法，能够表示复杂的矢量图形。其提供的丰富的路径操作和样式设置方法，使得用户可以方便地创建和操作各种图形。
 
 通过深入理解VMobject的设计和实现，我们可以更好地利用Manim创建复杂的数学动画，也可以为Manim的进一步发展提供参考。
+
+
+---
+
+## 6. VMobject 的使用方法
+
+### 1. 基本用法
+
+VMobject 是所有矢量化图形对象的基类，通常通过其子类（如 Line、Circle、Polygon、Rectangle 等）进行实例化和使用，也可以自定义路径。
+
+#### 示例：创建和添加矢量对象
+
+````python
+from manimlib.imports import *
+
+class VMobjectBasicDemo(Scene):
+def construct(self):
+line = Line(LEFT, RIGHT, color=YELLOW)
+circle = Circle(radius=1, color=BLUE, fill_opacity=0.5)
+polygon = Polygon(LEFT, UP, RIGHT, color=GREEN)
+self.add(line, circle, polygon)
+self.wait(1)
+````
+
+### 2. 常用方法
+
+- `set_points(points)`：自定义路径点
+- `set_fill(color, opacity)`：设置填充颜色和透明度
+- `set_stroke(color, width, opacity)`：设置描边颜色、宽度和透明度
+- `make_smooth()`：平滑路径
+- `add_cubic_bezier_curve(anchor1, handle1, handle2, anchor2)`：添加三次贝塞尔曲线
+- `close_path()`：闭合路径
+- `append_points(points)`：追加路径点
+
+#### 示例：自定义路径
+
+````python
+class CustomPathDemo(Scene):
+def construct(self):
+vmob = VMobject()
+vmob.set_points_as_corners([LEFT, UP, RIGHT, DOWN, LEFT])
+vmob.set_stroke(RED, 4)
+vmob.set_fill(YELLOW, 0.3)
+self.add(vmob)
+self.wait(1)
+````
+
+### 3. 路径操作与样式设置
+
+- 可以通过 `set_points_as_corners`、`set_points_smoothly` 等方法快速生成折线或平滑曲线。
+- 通过 `set_fill` 和 `set_stroke` 灵活设置样式。
+
+#### 示例：平滑曲线与样式
+
+````python
+class SmoothCurveDemo(Scene):
+def construct(self):
+points = [LEFT, UP, RIGHT, DOWN, LEFT]
+curve = VMobject()
+curve.set_points_smoothly(points)
+curve.set_stroke(BLUE, 6)
+curve.set_fill(PINK, 0.4)
+self.add(curve)
+self.wait(1)
+````
+
+### 4. 动画与变换
+
+VMobject 支持与 Manim 动画系统结合，实现路径变形、平移、缩放、变色等动画。
+
+````python
+class VMobjectAnimationDemo(Scene):
+def construct(self):
+poly1 = Polygon(LEFT, UP, RIGHT, color=YELLOW)
+poly2 = Polygon(LEFT, DOWN, RIGHT, color=RED)
+self.add(poly1)
+self.wait(0.5)
+self.play(Transform(poly1, poly2))
+self.wait(1)
+````
+
+---
+
+通过上述方法，VMobject 及其子类可以灵活地实现矢量路径的绘制、样式设置、平滑处理和动画变换，满足各种复杂图形和动画的需求。

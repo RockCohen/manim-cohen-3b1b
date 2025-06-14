@@ -75,3 +75,97 @@ endif
 stop
 @enduml
 ```
+
+
+---
+
+## PMobject 的使用方法
+
+### 1. 基本用法
+
+PMobject 通常不直接实例化，而是作为子类（如 DotCloud、VMobject 等）的基类使用。你可以通过其子类来创建点云对象。
+
+#### 示例：自定义点云对象
+
+````python
+from manimlib.imports import *
+
+class CustomPointCloud(PMobject):
+def __init__(self, points, color=WHITE, **kwargs):
+super().__init__(**kwargs)
+self.set_points(points)
+self.set_color(color)
+
+class PointCloudDemo(Scene):
+def construct(self):
+points = [
+[0, 0, 0],
+[1, 0, 0],
+[0, 1, 0],
+[1, 1, 0]
+]
+cloud = CustomPointCloud(points, color=YELLOW)
+self.add(cloud)
+self.wait(1)
+````
+
+### 2. 常用方法
+
+- `set_points(points)`：设置点云的所有点。
+- `add_points(points)`：向点云中添加多个点。
+- `add_point(point)`：添加单个点。
+- `set_color_by_gradient(*colors)`：为点云设置渐变色。
+- `filter_out(condition)`：根据条件函数筛选点。
+- `sort_points(function)`：根据函数对点排序。
+- `ingest_submobjects()`：合并所有子 PMobject 的点。
+
+### 3. 典型场景示例
+
+#### 3.1 渐变色点云
+
+````python
+class GradientPointCloudDemo(Scene):
+def construct(self):
+points = [
+[x, 0, 0] for x in np.linspace(-3, 3, 50)
+]
+cloud = CustomPointCloud(points)
+cloud.set_color_by_gradient(RED, YELLOW, GREEN)
+self.add(cloud)
+self.wait(1)
+````
+
+#### 3.2 点的筛选与排序
+
+````python
+class FilterSortDemo(Scene):
+def construct(self):
+points = np.random.uniform(-2, 2, (100, 3))
+cloud = CustomPointCloud(points)
+# 只保留 x>0 的点
+cloud.filter_out(lambda p: p[0] <= 0)
+# 按 y 坐标排序
+cloud.sort_points(lambda p: p[1])
+self.add(cloud)
+self.wait(1)
+````
+
+#### 3.3 动画中的点云变换
+
+````python
+class PointwisePartialDemo(Scene):
+def construct(self):
+points1 = np.random.uniform(-2, 2, (50, 3))
+points2 = np.random.uniform(-2, 2, (50, 3))
+cloud1 = CustomPointCloud(points1, color=BLUE)
+cloud2 = CustomPointCloud(points2, color=GREEN)
+self.add(cloud1)
+self.wait(0.5)
+# 只变换前 30% 的点
+cloud1.pointwise_become_partial(cloud2, 0, 0.3)
+self.wait(1)
+````
+
+---
+
+通过上述方法，PMobject 及其子类可以灵活地实现点云的创建、操作、着色、筛选、排序和动画变换，适用于各种基于点的可视化和动画场景。
